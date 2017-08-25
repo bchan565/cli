@@ -1,5 +1,14 @@
 #!/usr/bin/env node
 
-var execute = require('./execute.js');
-var cli = require('./cliLibrary.js');
-var execute = require('./cliPrompt.js');
+let execute = require('./execute.js');
+let cli = require('./cliLibrary.js');
+let cliPrompt = require('./cliPrompt.js')
+
+
+
+let option = process.argv[2];
+if(option === 'cap') {
+	let message = cliPrompt.commitMessagePrompt();
+	cli.commit(message);
+	cli.push();
+}
