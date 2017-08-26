@@ -4,11 +4,30 @@ let execute = require('./execute.js');
 let cli = require('./cliLibrary.js');
 let cliPrompt = require('./cliPrompt.js')
 
-
-
 let option = process.argv[2];
-if(option === 'cap') {
-	let message = cliPrompt.commitMessagePrompt();
-	cli.commit(message);
-	cli.push();
+
+if (typeof option === 'undefined') {
+    cliPrompt.displayMenu();
+    option = cliPrompt.optionPrompt();
+    performOperation(option);
+} else {
+    performOperation(option);
+}
+
+function performOperation(option) {
+    switch (option) {
+        case 'cap':
+            let message = cliPrompt.commitMessagePrompt();
+            cli.commit(message);
+            cli.push();
+            break;
+        default:
+            terminate();
+    }
+}
+
+function terminate() {
+    console.log('Bad input. Terminating...')
+    process.exit();
+
 }
