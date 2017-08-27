@@ -3,6 +3,7 @@
 let execute = require('./execute.js');
 let cli = require('./cliLibrary.js');
 let cliPrompt = require('./cliPrompt.js')
+let colors = require('colors');
 
 let option = process.argv[2];
 
@@ -18,12 +19,18 @@ function performOperation(option) {
     switch (option) {
         case 'cap':
             let message = cliPrompt.commitMessagePrompt();
-            cli.commit(message);
-            cli.push();
+            cli.commitAndPush(message);
+            break;
+        case 'alias':
+            break;
+        case 'sreset':
+            break;
+        case 'hreset':
             break;
         default:
             terminate();
     }
+
 }
 
 function terminate() {
