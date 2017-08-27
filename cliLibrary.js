@@ -1,11 +1,14 @@
 let execute = require('./execute.js');
+let userExp = require('./userExp.js');
+let utilities = require('./utilities.js');
 
-
-class Cli {
+class CLI {
     constructor() {
         let git = 'git ';
         this.gitCommands = {
-            commit: git + 'commit -am "'
+            commit: git + 'commit -am "',
+            pushUpStream: git + 'push --set-upstream origin ',
+            setAlias: git + 'config --global alias.'
         }
     }
 
@@ -15,7 +18,7 @@ class Cli {
 
     push() {
         let currentBranch = this.getCurrentBranch();
-        console.log(execute.command(`git push --set-upstream origin ${currentBranch}`).toString());
+        console.log(execute.command(`${this.gitCommands.pushUpStream}${currentBranch}`).toString());
     }
 
     commitAndPush(message) {
@@ -23,7 +26,8 @@ class Cli {
         this.push();
     }
 
-    setAlias(alias, command) {
+    createAlias(alias, command) {
+        execute.command(`${this.gitCommands.setAlias}${alias} ${command}`)
         'git config --global alias.st status '
     }
 
@@ -37,4 +41,4 @@ class Cli {
     }
 }
 
-module.exports = new Cli();
+module.exports = new CLI();

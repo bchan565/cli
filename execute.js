@@ -1,4 +1,5 @@
 var child_process = require('child_process');
+let userExp = require('./userExp.js');
 
 class Execute {
     constuctor() {
@@ -6,6 +7,7 @@ class Execute {
             stdio: 'ignore',
             encoding: 'utf8'
         }
+        this.flags;
 
     }
 
@@ -14,6 +16,9 @@ class Execute {
             cmd = cmd.join(' && ');
         }
         try {
+            if (!this.flags.suppress) {
+                console.log(userExp.colorString(cmd, 'green'))
+            }
             return child_process.execSync(cmd, this.options).toString();;
 
         } catch (error) {
