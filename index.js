@@ -38,10 +38,32 @@ function performOperation(option) {
             cli.commitAndPush(message);
             break;
         case 'alias':
+            let aliasBundle = cliPrompt.aliasPrompt();
+            console.log(aliasBundle)
+            if (aliasBundle.choice === 'git') {
+                if (aliasBundle.config === 'add') {
+                    let addConfig = cliPrompt.addAliasPrompt('git');
+                    cli.createAlias(addConfig.alias, addConfig.command, true);
+                } else {
+                    console.log('made it to else')
+                    let aliasToDelete = cliPrompt.deleteAliasPrompt('git');
+                    cli.deleteAlias(aliasToDelete, true);
+                }
+            } else {
+                if (aliasBundle.config === 'add') {
+                    let addConfig = cliPrompt.addAliasPrompt('unix/regular');
+                    cli.createAlias(addConfig.alias, addConfig.command, false);
+                } else {
+                    let aliasToDelete = cliPrompt.deleteAliasPrompt('regular/unix');
+                    cli.deleteAlias(aliasToDelete, false);
+                }
+            }
             break;
         case 'sreset':
+            cli.reset(true);
             break;
         case 'hreset':
+            cli.reset(false);
             break;
         default:
             terminate();

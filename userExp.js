@@ -16,6 +16,10 @@ class UserExp {
                 return colors.green.bold(string);
             case 'yellow':
                 return colors.yellow.bold(string);
+            case 'magenta':
+                return colors.magenta.bold(string);
+            default:
+                return colors.trap(string);
         }
 
     }

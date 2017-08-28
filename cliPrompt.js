@@ -16,17 +16,32 @@ class Prompt {
     }
 
     optionPrompt() {
-        let option = prompt.question('Choose an operation to perform: ');
+        let option = prompt.question(userExp.colorString('Choose an operation to perform: ', 'green'));
         return option;
     }
 
     commitMessagePrompt() {
-        let message = prompt.question('Type in a commit message: ');
+        let message = prompt.question(userExp.colorString('Type in a commit message: ', 'cyan'));
         return message;
     }
 
     aliasPrompt() {
-        let choice;
+        let aliasBundle = {}
+        aliasBundle.choice = prompt.question(userExp.colorString('Is this a git or regular alias? (git/reg): ', 'cyan'));
+        aliasBundle.config = prompt.question(userExp.colorString('Do you want to add or delete an alias? (add/del): ', 'green'));
+        return aliasBundle;
+    }
+
+    addAliasPrompt(choice) {
+        let addConfig = {}
+        addConfig.command = prompt.question(userExp.colorString(`Choose a ${choice} command to alias: `, 'blue'));
+        addConfig.alias = prompt.question(userExp.colorString(`Choose a name to alias command ${addConfig.command}: `, 'green'));
+        return addConfig;
+    }
+
+    deleteAliasPrompt(choice) {
+        let aliasToDelete = prompt.question(userExp.colorString(`Choose a ${choice} alias you want to delete: `, 'magenta'));
+        return aliasToDelete;
     }
 }
 
