@@ -8,7 +8,13 @@ class CLI {
         this.gitCommands = {
             commit: git + 'commit -am "',
             pushUpStream: git + 'push --set-upstream origin ',
-            setAlias: git + 'config --global alias.'
+            setGitAlias: git + 'config --global alias.',
+            deleteGitAlias: git + 'config --global --unset alias.',
+            reset: git + 'reset --'
+        }
+        this.unixCommands = {
+            setAlias: 'alias ',
+            deleteAlias: 'unalias -a '
         }
     }
 
@@ -26,17 +32,37 @@ class CLI {
         this.push();
     }
 
-    createAlias(alias, command) {
-        execute.command(`${this.gitCommands.setAlias}${alias} ${command}`)
-        'git config --global alias.st status '
+    createAlias(alias, command, isGit) {
+        if (isGit) {
+            execute.command(`${this.gitCommands.setGitAlias}${alias} ${command}`)
+        } else {
+            execute.command(`${this.unixCommands.setAlias}${alias}="${command}"`)
+        }
+        // 'git config --global alias.st status '
+        // 'alias p="pwd"'
     }
 
-    deleteAlias(alias) {
-        'git config --global --unset alias.st'
+    deleteAlias(alias, isGit) {
+        if (isGit) {
+            execute.command(`${this.gitCommands.deleteGitAlias}${alias}`)
+        } else {
+            execute.command(`${this.unixCommands.deleteAlias}${alias}`)
+
+        }
+        // 'git config --global --unset alias.st'
+        // 'unalias [-a] [alias_name(s)]'
     }
+
+    reset(isSoft) {
+            if (isSoft) {
+                execute.command(`${this.gitCommands.reset}soft HEAD~1`)
+            } else {
+                execute.command(`${this.gitCommands.reset}hard HEAD~1`)
+            }
+        } //git clean -f -> look it up, deletes untracked files
 
     getCurrentBranch() {
-        let currentBranch = execute.command(`git branch | grep \* | cut -d ' ' -f2`).toString();
+        let currentBranch = execute.command(`git rev-parse --abbrev-ref HEAD`).toString();
         return currentBranch;
     }
 }

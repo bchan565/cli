@@ -1,9 +1,11 @@
+let colors = require('colors');
+
 class UserExp {
     constructor() {
 
     }
     colorString(string, color) {
-        switch ('color') {
+        switch (color) {
             case 'red':
                 return colors.red.bold(string);
             case 'blue':
