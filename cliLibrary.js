@@ -35,7 +35,7 @@ class CLI {
 
     createAlias(alias, command, isGit) {
         if (isGit) {
-            execute.command(`${this.gitCommands.setGitAlias}${alias} ${command}`)
+            execute.command(`${this.gitCommands.setGitAlias}${alias} "${command}"`)
         } else {
             execute.command(`${this.unixCommands.setAlias}${alias}="${command}"`)
         }
