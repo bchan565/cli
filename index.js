@@ -70,6 +70,12 @@ function performOperation(option) {
             cli.reset(false);
             console.log(userExp.colorString(`hard reset successful! ${emoji.random().emoji}`, 'green'));
             break;
+        case 'repo':
+            let repo = cliPrompt.repoPrompt();
+            let destination = cliPrompt.destinationPrompt();
+            cli.configRepo(repo, destination);
+            console.log(userExp.colorString(`configuration of a repo onto package.json successful! ${emoji.random().emoji}`, 'green'))
+            break;
         default:
             terminate();
     }

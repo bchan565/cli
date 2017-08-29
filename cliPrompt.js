@@ -11,7 +11,8 @@ class Prompt {
         console.log(userExp.colorString('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', 'red'))
         console.log(userExp.colorString('cap = Commit And Push', 'cyan'));
         console.log(userExp.colorString('alias = Create or Delete a Unix/Git alias', 'green'));
-        console.log(userExp.colorString('sreset/hreset = reset current HEAD; sreset = soft, hreset = hard', 'yellow'))
+        console.log(userExp.colorString('sreset/hreset = reset current HEAD; sreset = soft, hreset = hard', 'yellow'));
+        console.log(userExp.colorString('repo = set a repo to an existent package.json, or create a package.json with a repo', 'cyan'));
         console.log(userExp.colorString('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', 'red'))
     }
 
@@ -42,6 +43,18 @@ class Prompt {
     deleteAliasPrompt(choice) {
         let aliasToDelete = prompt.question(userExp.colorString(`Choose a ${choice} alias you want to delete: `, 'magenta'));
         return aliasToDelete;
+    }
+
+    repoPrompt() {
+        let repo = prompt.question(userExp.colorString('Type in a GitHub url you want to use as a repo: ', 'cyan'));
+        return repo;
+    }
+
+    destinationPrompt() {
+        let defaultDirectory = process.cwd();
+        let directory = prompt.question(userExp.colorString('Type in directory for package repo (default is currentdirectory, just type enter): ', 'green'));
+        directory = directory || defaultDirectory;
+        return directory;
     }
 }
 

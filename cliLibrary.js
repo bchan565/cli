@@ -1,6 +1,7 @@
 let execute = require('./execute.js');
 let userExp = require('./userExp.js');
 let utilities = require('./utilities.js');
+let lodash = require('lodash')
 
 class CLI {
     constructor() {
@@ -60,6 +61,22 @@ class CLI {
                 execute.command(`${this.gitCommands.reset}hard HEAD~1`)
             }
         } //git clean -f -> look it up, deletes untracked files
+
+    configRepo(gitRepo, destination) {
+        let packageJson = utilities.getFile('./package.json');
+        if (packageJson) {
+            lodash.assign(packageJson, {
+                repository: gitRepo
+            })
+            utilities.saveFile(destination + '/package.json', packageJson);
+        } else {
+            packageJson = {
+                repository: gitRepo
+            }
+            utilities.saveFile(destination + '/package.json', packageJson);
+
+        }
+    }
 
     getCurrentBranch() {
         let currentBranch = execute.command(`git rev-parse --abbrev-ref HEAD`).toString();
