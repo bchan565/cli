@@ -41,7 +41,6 @@ function performOperation(option) {
             break;
         case 'alias':
             let aliasBundle = cliPrompt.aliasPrompt();
-            console.log(aliasBundle)
             if (aliasBundle.choice === 'git') {
                 if (aliasBundle.config === 'add') {
                     let addConfig = cliPrompt.addAliasPrompt('git');
