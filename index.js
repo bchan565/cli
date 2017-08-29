@@ -5,6 +5,7 @@ let cli = require('./cliLibrary.js');
 let cliPrompt = require('./cliPrompt.js');
 let userExp = require('./userExp.js');
 let colors = require('colors');
+let emoji = require('node-emoji')
 
 let option = process.argv[2];
 
@@ -36,6 +37,7 @@ function performOperation(option) {
         case 'cap':
             let message = cliPrompt.commitMessagePrompt();
             cli.commitAndPush(message);
+            console.log(userExp.colorString(`commit and push was successful ${emoji.random().emoji}`, 'green'))
             break;
         case 'alias':
             let aliasBundle = cliPrompt.aliasPrompt();
@@ -58,12 +60,15 @@ function performOperation(option) {
                     cli.deleteAlias(aliasToDelete, false);
                 }
             }
+            console.log(userExp.colorString(`configuration of alias was successful! ${emoji.random().emoji}`, 'green'));
             break;
         case 'sreset':
             cli.reset(true);
+            console.log(userExp.colorString(`soft reset successful! ${emoji.random().emoji}`, 'green'));
             break;
         case 'hreset':
             cli.reset(false);
+            console.log(userExp.colorString(`hard reset successful! ${emoji.random().emoji}`, 'green'));
             break;
         default:
             terminate();
