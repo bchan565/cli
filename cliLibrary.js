@@ -6,6 +6,7 @@ let lodash = require('lodash')
 class CLI {
     constructor() {
         let git = 'git ';
+        this.remote = utilities.getFile('./package.json').repository;
         this.gitCommands = {
             commit: git + 'commit -am "',
             pushUpStream: git + 'push --set-upstream origin ',
@@ -24,8 +25,13 @@ class CLI {
     }
 
     push() {
-        let currentBranch = this.getCurrentBranch();
-        console.log(execute.command(`${this.gitCommands.pushUpStream}${currentBranch}`).toString());
+        if (this.remote) {
+            let currentBranch = this.getCurrentBranch();
+            console.log(execute.command(`${this.gitCommands.pushUpStream}${currentBranch}`).toString());
+        } else {
+            throw 'Error! No such package.json with a repository field'
+        }
+
     }
 
     commitAndPush(message) {
