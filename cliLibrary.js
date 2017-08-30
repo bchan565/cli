@@ -9,7 +9,7 @@ class CLI {
         this.remote = utilities.getFile('./package.json').repository;
         this.gitCommands = {
             commit: git + 'commit -am "',
-            pushUpStream: git + 'push --set-upstream origin ',
+            pushUpStream: git + `push --set-upstream ${this.remote} `,
             setGitAlias: git + 'config --global alias.',
             deleteGitAlias: git + 'config --global --unset alias.',
             reset: git + 'reset --'
