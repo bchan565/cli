@@ -13,6 +13,7 @@ class Prompt {
         console.log(userExp.colorString('alias = Create or Delete a Unix/Git alias', 'green'));
         console.log(userExp.colorString('sreset/hreset = reset current HEAD; sreset = soft, hreset = hard', 'yellow'));
         console.log(userExp.colorString('repo = set a repo to an existent package.json, or create a package.json with a repo', 'cyan'));
+        console.log(userExp.colorString('done', 'cyan'));
         console.log(userExp.colorString('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~', 'red'))
     }
 
@@ -55,6 +56,11 @@ class Prompt {
         let directory = prompt.question(userExp.colorString('Type in directory for package repo (default is currentdirectory, just type enter): ', 'green'));
         directory = directory || defaultDirectory;
         return directory;
+    }
+
+    pushRebasePrompt() {
+        let branch = prompt.question(userExp.colorString('Enter a branch you want to rebase on to and push: ', 'cyan'));
+        return branch;
     }
 }
 

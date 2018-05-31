@@ -88,6 +88,16 @@ class CLI {
         let currentBranch = execute.command(`git rev-parse --abbrev-ref HEAD`).toString();
         return currentBranch;
     }
+
+    rebaseAndPush(branchToPush) {
+        execute.command(`git checkout master`).toString();
+        execute.command(`git fetch origin`).toString();
+        execute.command(`git reset origin/master --hard`).toString();
+        execute.command(`git checkout ${branchToPush}`).toString();
+        execute.command(`git rebase origin/master -i`).toString();
+        execute.command(`git push origin ${branchToPush} -f`).toString();
+
+    }
 }
 
 module.exports = new CLI();

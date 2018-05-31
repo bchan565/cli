@@ -75,6 +75,13 @@ function performOperation(option) {
             cli.configRepo(repo, destination);
             console.log(userExp.colorString(`configuration of a repo onto package.json successful! ${emoji.random().emoji}`, 'green'))
             break;
+
+        case 'done':
+            let branch = cliPrompt.pushRebasePrompt();
+            cli.rebaseAndPush(branch);
+            console.log("doneskis");
+            break;
+
         default:
             terminate();
     }
